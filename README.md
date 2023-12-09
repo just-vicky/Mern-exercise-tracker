@@ -18,8 +18,11 @@ Install Nodemon package globally:
 Now we can start the server by using nodemon inside backend folder using:
 ### `nodemon server`
 
+Then return to the root folder:
+### `cd ../`
+
 ## Frontend
-Start the webserver inside the main folder:
+Start the webserver inside the root folder:
 ### `npm install`
 ### `npm start`
 
