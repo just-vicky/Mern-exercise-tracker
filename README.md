@@ -13,7 +13,7 @@ Now we can install a few dependencies:
 ### `npm install express cors mongoose dotenv`
 
 Install Nodemon package globally:
-### `npm install -g nodemon`
+### `sudo npm install -g nodemon`
 
 Now we can start the server by using nodemon inside backend folder using:
 ### `nodemon server`
