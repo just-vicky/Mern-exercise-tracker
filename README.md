@@ -3,8 +3,7 @@ Verify you have Node.js installed on your system by typing the following on the 
 ### `node -v`
 
 ## Backend
-Inside the root folder (“mern-exercise-tracker”), create a new folder and change into the folder by running the following commands in the terminal:
-### `mkdir backend`
+Inside the root folder (“mern-exercise-tracker”), change into the folder by running the following commands in the terminal:
 ### `cd backend`
 
 We’ll create a package.json file inside the folder by running:
