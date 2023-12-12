@@ -8,14 +8,23 @@ router.route('/').get((req,res)=> {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add').post(async(req, res) => {
   const username = req.body.username;
+
+  try {
+    const existingUser = await User.findOne({ username });
+
+    if (existingUser) {
+      return res.status(400).json('Username already exists');
+    }
 
   const newUser = new User({username});
 
-  newUser.save()
-    .then(() => res.json('User added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+  await newUser.save();
+    res.json('User added!');
+  } catch (err) {
+    res.status(400).json('Error: ' + err.message);
+  }
 });
 
 
