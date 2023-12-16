@@ -21,8 +21,8 @@ router.route('/add').post((req, res) => {
   });
 
   newExercise.save()
-    .then(() => res.json('Exercise added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+  .then(() => res.json('Exercise added!'))
+  .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').get((req, res) => {
@@ -30,12 +30,19 @@ router.route('/:id').get((req, res) => {
     .then(exercise => res.json(exercise))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
 router.route('/:id').delete((req, res) => {
   Exercise.findByIdAndDelete(req.params.id)
-    .then(exercise => res.json("Exercise deleted"))
+    .then(() => res.json('Exercise deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
 router.route('/update/:id').post((req, res) => {
+  const exerciseId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(exerciseId)) {
+    return res.status(400).json({ error: 'Invalid exerciseId' });
+  }
   Exercise.findById(req.params.id)
     .then(exercise => {
       exercise.username = req.body.username;
@@ -44,8 +51,8 @@ router.route('/update/:id').post((req, res) => {
       exercise.date = Date.parse(req.body.date);
 
       exercise.save()
-      .then(() => res.json('Exercise updated'))
-      .catch(err => res.status(400).json('Error: ' + err));
+        .then(() => res.json('Exercise updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
 });
