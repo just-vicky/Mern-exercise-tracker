@@ -52,11 +52,12 @@ export default class CreateExercise extends Component{
     });
   }
   onChangeDate(date){
+    console.log("onChangeDate: " + date)
     this.setState({
        date: date
     });
   }
-
+  // Tue Dec 26 2023 10:58:25 GMT+0530
   onSubmit(e){
     e.preventDefault();
 
@@ -71,7 +72,7 @@ export default class CreateExercise extends Component{
       .then(res => console.log(res.data)); 
 
 
-    window.location = '/';
+    // window.location = '/';
   }
   
 
