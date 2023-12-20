@@ -16,16 +16,16 @@ const EditExercise = (props) => {
   const { id } = useParams();
 
   useEffect(() => {
-   
-    console.log('Exercise ID:', id);
 
-    
+    // console.log('Exercise ID:', id);
+
+
 
     const fetchExercise = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/exercises/${id}`);
         const data = response.data;
-        console.log(data);
+        // console.log(data);
 
         setUsername(data.username);
         setDescription(data.description);
@@ -69,12 +69,18 @@ const EditExercise = (props) => {
   };
 
   const onChangeDate = (date) => {
+    console.log("onChangeDate: edit " + date)
     setDate(date);
+  };
+
+  const debug = (res) => {
+    console.log("res: " + res)
+
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const exerciseId = id;
+    // const exerciseId = id;
 
     if (!id) {
       console.error('Exercise ID is undefined.');
@@ -88,13 +94,27 @@ const EditExercise = (props) => {
       date: date,
     };
 
-    console.log(exercise);
+    console.log('Submitting Exercise:', exercise);
 
-    
-  axios.post(`http://localhost:5000/exercises/update/${id}`, exercise)
-  .then((res) => console.log(res.data))
-  .catch((error) => console.error(error));
-    // window.location = '/';
+    axios.post(`http://localhost:5000/exercises/update/${id}`, exercise)
+      .then((res) => {
+        // console.log('Update Response:', res.data);
+        // Update local state with new values
+        debug(res.data.date);
+        setUsername(res.data.username);
+        setDescription(res.data.description);
+        setDuration(res.data.duration);
+        setDate(new Date(res.data.date));
+        // Optionally, you can add a notification or redirect
+        // window.location = '/';
+      })
+      .catch((error) => {
+
+        console.error('Update Error:', error);
+        console.error('Update Error Response:', error.response); // Log the detailed error response
+        // Optionally, handle error with a notification
+      });
+
   };
 
   return (
